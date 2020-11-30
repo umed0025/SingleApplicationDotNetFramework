@@ -1,28 +1,22 @@
-# ŠT—v
+# æ¦‚è¦
 
-’PˆêEXEƒtƒ@ƒCƒ‹ì¬ƒTƒ“ƒvƒ‹
+å˜ä¸€EXEãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆã‚µãƒ³ãƒ—ãƒ«
 
-# Ú×
+# è©³ç´°
 
-1. Constra.Fody‚ğg—pBi“à•”‚ÅILMerge‚ğŒÄ‚ñ‚Å‚¢‚éj
-2. ƒfƒoƒbƒO‚ª‚Å‚«‚é‚æ‚¤’Ç‰Áİ’è
+1. Nugetã§Constra.Fodyã‚’ä½¿ç”¨ã€‚ï¼ˆå†…éƒ¨ã§ILMergeã‚’å‘¼ã‚“ã§ã„ã‚‹ï¼‰
+2. ãƒ‡ãƒãƒƒã‚°ãŒã§ãã‚‹ã‚ˆã†è¨­å®šã€‚
+    * .gitignoreã«ã€ŒFodyWeavers.xmlã€ã‚’è¿½åŠ ã€‚
+    * ã€ŒFodyWeavers_Debug.xmlã€ã‚’è¿½åŠ ã€‚
+    * ã€ŒFodyWeavers_Release.xmlã€ã‚’è¿½åŠ ã€‚
+        * ã€Œãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã€â†’ã€Œãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã€â†’ã€Œãƒ“ãƒ«ãƒ‰ã‚¤ãƒ™ãƒ³ãƒˆã€â†’ã€Œãƒ“ãƒ«ãƒ‰å‰ã‚¤ãƒ™ãƒ³ãƒˆã€
 
-C³‘OF
 ```
-  <ItemGroup>
-    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
-    </Reference>
-...
+if $(ConfigurationName) == Debug (
+xcopy /Y "$(ProjectDir)FodyWeavers_Debug.xml" "$(ProjectDir)FodyWeavers.xml*"
+) ELSE (
+xcopy /Y "$(ProjectDir)FodyWeavers_Release.xml" "$(ProjectDir)FodyWeavers.xml*"
+)
 ```
 
-C³ŒãF
 
-```C#
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) AND '$(Configuration)' == 'Release'">
-    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-```

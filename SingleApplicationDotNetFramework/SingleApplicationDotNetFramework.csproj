@@ -63,12 +63,10 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) AND '$(Configuration)' == 'Release'">
+  <ItemGroup>
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -91,7 +89,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="SingleApplicationDotNetFramework_TemporaryKey.pfx" />
   </ItemGroup>
@@ -116,4 +113,12 @@
     <Error Condition="!Exists('..\packages\Fody.6.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.0.0\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>if $(ConfigurationName) == Debug (
+xcopy /Y "$(ProjectDir)FodyWeavers_Debug.xml" "$(ProjectDir)FodyWeavers.xml*"
+) ELSE (
+xcopy /Y "$(ProjectDir)FodyWeavers_Release.xml" "$(ProjectDir)FodyWeavers.xml*"
+)
+</PreBuildEvent>
+  </PropertyGroup>
 </Project>
